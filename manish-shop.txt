@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manish Shopping Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .cart {
+            font-size: 16px;
+        }
+
+        .search-bar {
+            text-align: center;
+            padding: 15px;
+            background: white;
+        }
+
+        .search-bar input {
+            width: 60%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .categories {
+            text-align: center;
+            padding: 10px;
+            background: #222;
+        }
+
+        .categories button {
+            margin: 5px;
+            padding: 8px 15px;
+            border: none;
+            background: #444;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .categories button:hover {
+            background: green;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+            text-align: center;
+        }
+
+        .product img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .product button {
+            background: green;
+            color: white;
+            border: none;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media(max-width: 600px){
+            .search-bar input {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Manish Shopping Store</div>
+    <div class="cart">Cart: <span id="cart-count">0</span></div>
+</header>
+
+<div class="search-bar">
+    <input type="text" id="search" placeholder="Search product..." onkeyup="searchProduct()">
+</div>
+
+<div class="categories">
+    <button onclick="filterProduct('all')">All</button>
+    <button onclick="filterProduct('fashion')">Fashion</button>
+    <button onclick="filterProduct('electronics')">Electronics</button>
+</div>
+
+<div class="products" id="product-list">
+
+    <div class="product" data-category="fashion">
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400">
+        <h3>T-Shirt</h3>
+        <p>₹499</p>
+        <button onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <div class="product" data-category="fashion">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400">
+        <h3>Shoes</h3>
+        <p>₹999</p>
+        <button onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <div class="product" data-category="electronics">
+        <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400">
+        <h3>Smartphone</h3>
+        <p>₹10999</p>
+        <button onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <div class="product" data-category="electronics">
+        <img src="https://images.unsplash.com/photo-1511389026070-a14ae610a1be?w=400">
+        <h3>Watch</h3>
+        <p>₹1499</p>
+        <button onclick="addToCart()">Add to Cart</button>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Manish Shopping Store | Contact: manish2721verma@gmail.com | 6388581146
+</footer>
+
+<script>
+let count = 0;
+function addToCart() {
+    count++;
+    document.getElementById("cart-count").innerText = count;
+}
+
+function searchProduct() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let products = document.getElementsByClassName("product");
+
+    for (let i = 0; i < products.length; i++) {
+        let title = products[i].getElementsByTagName("h3")[0].innerText.toLowerCase();
+        products[i].style.display = title.includes(input) ? "block" : "none";
+    }
+}
+
+function filterProduct(category) {
+    let products = document.getElementsByClassName("product");
+
+    for (let i = 0; i < products.length; i++) {
+        if (category === "all" || products[i].dataset.category === category) {
+            products[i].style.display = "block";
+        } else {
+            products[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+</body>
+</html>
